@@ -76,14 +76,9 @@ This helm chart deploys docker-mailserver into a Kubernetes cluster, in a manner
 
 ## Contents
 
-- [Contents](#contents)
-- [Why should I use this chart?](#why-should-i-use-this-chart)
-- [How to use it?](#how-to-use-it)
-- [What is this?](#what-is-this)
-- [How to use it?](#how-to-use-it-1)
-- [Old README](#old-readme)
+- [Docker-mailserver](#docker-mailserver)
   - [Introduction](#introduction)
-  - [Contents](#contents-1)
+  - [Contents](#contents)
   - [Features](#features)
   - [Prerequisites](#prerequisites)
   - [Architecture](#architecture)
@@ -110,17 +105,17 @@ This helm chart deploys docker-mailserver into a Kubernetes cluster, in a manner
 
 The chart includes the following features:
 
-* All configuration is done in values.yaml, or using the native "setup.sh" script (to create mailboxes or DKIM keys)
-* Avoids the [common problem of masking of source IP](https://kubernetes.io/docs/tutorials/services/source-ip/) by supporting haproxy's PROXY protocol (enabled by default)
+* All configuration is done in values.yaml, or using the native &#34;setup.sh&#34; script (to create mailboxes or DKIM keys)
+* Avoids the [common problem of masking of source IP](https://kubernetes.io/docs/tutorials/services/source-ip/) by supporting haproxy&#39;s PROXY protocol (enabled by default)
+* Supports integration with external HAProxy, HAProxy Ingress Controller, or [poor-mans-k8s-lb](https://www.funkypenguin.co.nz/project/a-simple-free-load-balancer-for-your-kubernetes-cluster/)
 * Employs [cert-manager](https://github.com/jetstack/cert-manager) to automatically provide/renew SSL certificates
-* Bundles in [RainLoop](https://www.rainloop.net) for webmail access (disabled by default)
-* Starts in "demo" mode, allowing the user to test core functionality before configuring for specific domains
-* CI/CD tested against Kubernetes 1.18,1.19, and 1.20 : ![Lint and Test Charts](https://github.com/funkypenguin/helm-docker-mailserver/workflows/Lint%20and%20Test%20Charts/badge.svg)
-* 
+* Bundles in [RainLoop](https://www.rainloop.net) for webmail access (enabled by default)
+* Starts in &#34;demo&#34; mode, allowing the user to test core functionality before configuring for specific domains
+
 ## Prerequisites
 
-- Kubernetes 1.16+ (*CI validates against > 1.18.0*)
-- To use HAProxy ingress, you'll need to deploying the chart to a cluster with a cloud provider capable of provisioning an
+- Kubernetes 1.5&#43; (*CI validates against 1.12.0*)
+- To use HAProxy ingress, you&#39;ll need to deploying the chart to a cluster with a cloud provider capable of provisioning an
 external load balancer (e.g. AWS, DO or GKE). (There is an [update planned](https://github.com/funkypenguin/docker-mailserver/issues/5) to support HA ingress on bare-metal deployments)
 - You control DNS for the domain(s) you intend to route through Traefik
 - __Suggested:__ PV provisioner support in the underlying infrastructure
